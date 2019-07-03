@@ -1,0 +1,21 @@
+/* Color */
+
+$color-white: #fff;
+$color-black: #000;
+
+/*Siderbar*/
+
+$siderBg: #001529;
+$siderLogoBg: #002140;
+$siderSubBg: #000c17;
+$siderText: rgba(255, 255, 255, 0.65);
+$siderActiveText: #fff;
+$siderActiveMenu: #1890ff;
+
+:export {
+  siderBg: $siderBg;
+  siderSubBg: $siderSubBg;
+  siderText: $siderText;
+  siderActiveText: $siderActiveText;
+  siderActiveMenu: $siderActiveMenu;
+}

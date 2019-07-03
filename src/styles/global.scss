@@ -1,0 +1,33 @@
+@import "./variables.scss";
+
+.admin-pro-layout {
+  display: flex;
+  flex: auto;
+  height: 100vh;
+}
+.admin-pro-sidebar {
+  width: 256px;
+  .siderbar-logo {
+    padding: 1.2em 0;
+    background-color: $siderLogoBg;
+    text-align: center;
+    a {
+      color: $color-white;
+      text-decoration: none;
+    }
+    .text {
+      margin: 0;
+    }
+  }
+  .sidebar-menu {
+    height: 100vh;
+  }
+}
+.siderbar-collapsed {
+  width: 64px;
+  .siderbar-logo {
+    .text {
+      display: none;
+    }
+  }
+}
