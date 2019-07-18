@@ -7,13 +7,6 @@ module.exports = {
   },
   extends: ["plugin:vue/essential", "@vue/prettier", "eslint:recommended"],
   rules: {
-    "prettier/prettier": [
-      "error",
-      {
-        singleQuote: true, //单引号
-        semi: false //分号
-      }
-    ],
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     quotes: [

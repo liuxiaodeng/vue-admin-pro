@@ -1,19 +1,7 @@
 <template>
   <div ref="waterfall" class="waterfall-height">
-    <div class="img-container">
-      <div class="image-box " v-for="img in imgList" :key="img.url">
-        <img :src="img.url" :height="img.height" />
-      </div>
-      <div class="image-box" v-for="img in rowList" :key="img.url">
-        <img :src="img.url" :height="img.height" />
-      </div>
-    </div>
-    <div>
-      Free images and videos you can use anywhere Pixabay is a vibrant community
-      of creatives, sharing copyright free images and videos. All contents are
-      released under the Pixabay License, which makes them safe to use without
-      asking for permission or giving credit to the artist - even for commercial
-      purposes. Learn more... Google Play Store
+    <div class="image-box" v-for="img in imgList" :key="img.id">
+      <img :src="img.url" :height="img.height" />
     </div>
   </div>
 </template>
@@ -25,44 +13,40 @@ export default {
       imgList: [],
       baseHeight: 200,
       rowList: [], //保存每一行的图片
-      rowWidth: 0, //每行的图片宽度
-      rowCount: 0
+      rowWidth: 0 //每行的图片宽度
     }
   },
-  watch: {
-    // rowList(values) {
-    //   this.$set(this.imgList, this.rowCount, values)
-    // }
-  },
   methods: {
-    loadImage() {
+    getImgList() {
       for (let i = 0; i < 17; i++) {
         let image = new Image()
-        image.src = require(`@/assets/images/${i}.jpg`)
-        image.onload = () => {
+        image.onload = async () => {
           this.compare({
             url: require(`@/assets/images/${i}.jpg`),
             width: this.baseHeight * (image.width / image.height),
             height: this.baseHeight
           })
         }
+        image.src = require(`@/assets/images/${i}.jpg`)
       }
     },
     //缩放后的总图片宽度与屏幕宽度比较
     compare(image) {
+      let growHeight = 1
       //容器宽度
-      let clientWidth = this.$refs.waterfall.offsetWidth - 20
+      let clientWidth = this.$refs.waterfall.offsetWidth
       //计算每行宽度
       this.rowWidth += image.width
       //如果宽度大于容器宽度，去掉多余的宽度，整体进行缩放适应容器让右边对齐
       if (this.rowWidth > clientWidth) {
         this.rowWidth = this.rowWidth - image.width
-        let growAfterHeight = (clientWidth * this.baseHeight) / this.rowWidth
-        this.repaint(growAfterHeight)
+        //去除边距
+        clientWidth = clientWidth - this.rowList.length * 10
+        growHeight = (clientWidth * this.baseHeight) / this.rowWidth
+        this.repaint(growHeight)
         //把多余图片放入到下一行
         this.rowList = [image]
         this.rowWidth = image.width
-        //this.rowCount++
       } else {
         //如果小于容器宽度就添加进去
         this.rowList.push(image)
@@ -78,21 +62,18 @@ export default {
     }
   },
   created() {
-    this.loadImage()
+    this.getImgList()
   }
 }
 </script>
 <style lang="scss" scoped>
-.img-container {
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
+.waterfall-height {
+  overflow: hidden;
 }
 .image-box {
   float: left;
-  // padding: 5px;
+  padding: 5px;
+  box-sizing: border-box;
   img {
     display: block;
   }
