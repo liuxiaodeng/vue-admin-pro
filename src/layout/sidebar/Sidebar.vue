@@ -1,10 +1,5 @@
 <template>
   <div :class="[{ 'siderbar-collapsed': isCollapse }, 'admin-pro-sidebar']">
-    <div class="siderbar-logo">
-      <a href="/">
-        <h2 class="text">Vue Admin Pro</h2>
-      </a>
-    </div>
     <el-menu
       class="sidebar-menu"
       :default-active="activeIndex"
@@ -14,6 +9,11 @@
       :router="true"
       :collapse="isCollapse"
     >
+      <el-menu-item class="siderbar-logo">
+        <a href="/">
+          <h2 class="text">Vue Admin Pro</h2>
+        </a>
+      </el-menu-item>
       <menu-item
         v-for="menu in menus"
         :key="menu.path"

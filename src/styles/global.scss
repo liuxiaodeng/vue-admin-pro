@@ -2,11 +2,14 @@
 
 .admin-pro-layout {
   display: flex;
-  flex: auto;
+  flex: 1;
   height: 100vh;
 }
+.admin-pro-content {
+  flex: 1;
+}
 .admin-pro-sidebar {
-  width: 256px;
+  flex: 0 0 256px;
   .siderbar-logo {
     padding: 1.2em 0;
     background-color: $siderLogoBg;
@@ -24,7 +27,7 @@
   }
 }
 .siderbar-collapsed {
-  width: 64px;
+  flex: 0 0 64px;
   .siderbar-logo {
     .text {
       display: none;

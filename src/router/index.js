@@ -42,6 +42,25 @@ export const defaultRouters = [
     ]
   },
   {
+    path: '/waterfall',
+    component: Layout,
+    redirect: '/waterfall/height',
+    meta: {
+      title: '瀑布流布局',
+      icon: 'management'
+    },
+    children: [
+      {
+        path: '/waterfall/height',
+        name: 'height',
+        component: () => import('../views/waterfall/EqualHeight.vue'),
+        meta: {
+          title: '等高型'
+        }
+      }
+    ]
+  },
+  {
     path: '/shortcut',
     name: 'shortcut',
     component: () => import('../views/shortcut/Shortcut.vue'),
