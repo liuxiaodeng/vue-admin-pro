@@ -1,12 +1,9 @@
 <template>
   <div ref="waterfall" class="waterfall-width-js">
-    <div
-      class="container"
-      :style="{ width: colNumbers * colWidth + 'px', margin: '0 auto' }"
-    >
+    <div ref="container" class="container">
       <div class="image-col" v-for="(col, index) in imgList" :key="index">
-        <div class="image-box" v-for="(img, indx) in col" :key="indx">
-          <img :src="img.url" alt="" />
+        <div class="image-box" v-for="img in col" :key="img">
+          <img :src="img" alt="" />
         </div>
       </div>
     </div>
@@ -29,28 +26,19 @@ export default {
     getColNumbers() {
       let clientWidth = this.$refs.waterfall.clientWidth
       this.colNumbers = Math.floor(clientWidth / this.colWidth)
-      console.log(this.colNumbers)
+      this.$refs.container.style.marginLeft =
+        (clientWidth - this.colWidth * this.colNumbers) / 2 + 'px'
     },
     //读取图片
     loadImage() {
       this.getColNumbers()
       for (let i = 0; i < 17; i++) {
         let colIndex = i % this.colNumbers
-        let image = new Image()
         let url = require(`@/assets/images/${i}.jpg`)
-        image.src = url
-        image.onload = () => {
-          if (this.imgList[colIndex]) {
-            this.imgList[colIndex].push({
-              url: url
-            })
-          } else {
-            this.$set(this.imgList, colIndex, [
-              {
-                url: url
-              }
-            ])
-          }
+        if (this.imgList[colIndex]) {
+          this.imgList[colIndex].push(url)
+        } else {
+          this.$set(this.imgList, colIndex, [url])
         }
       }
     },
@@ -70,7 +58,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.container {
+.waterfall-width-js {
+  margin: 0 auto;
   overflow: hidden;
 }
 .image-col {

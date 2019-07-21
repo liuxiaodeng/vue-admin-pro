@@ -67,6 +67,22 @@ export const defaultRouters = [
         }
       },
       {
+        path: '/waterfall/width-column',
+        name: 'width-column',
+        component: () => import('../views/waterfall/WidthColumn.vue'),
+        meta: {
+          title: '等宽形CSS3'
+        }
+      },
+      {
+        path: '/waterfall/width-flex',
+        name: 'width-flex',
+        component: () => import('../views/waterfall/WidthFlex.vue'),
+        meta: {
+          title: '等宽形flex'
+        }
+      },
+      {
         path: '/waterfall/height-js',
         name: 'height-js',
         component: () => import('../views/waterfall/HeightJs.vue'),

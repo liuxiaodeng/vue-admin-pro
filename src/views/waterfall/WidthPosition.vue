@@ -1,7 +1,12 @@
 <template>
   <div ref="waterfall" class="waterfall-width-position">
-    <div class="image-col" v-for="(col, index) in imgList" :key="index">
-      <div class="image-box" v-for="(img, indx) in col" :key="indx">
+    <div
+      class="image-item"
+      v-for="(img, index) in imgList"
+      :key="index"
+      :style="{ top: img.top + 'px', left: img.left + 'px' }"
+    >
+      <div class="image">
         <img :src="img.url" alt="" />
       </div>
     </div>
@@ -14,7 +19,8 @@ export default {
     return {
       colWidth: 200,
       imgList: [],
-      colNumbers: 0
+      colNumbers: 0,
+      colHeight: []
     }
   },
   methods: {
@@ -27,27 +33,56 @@ export default {
     loadImage() {
       this.getColNumbers()
       for (let i = 0; i < 17; i++) {
-        let colIndex = i % this.colNumbers
         let image = new Image()
         let url = require(`@/assets/images/${i}.jpg`)
         image.src = url
         image.onload = () => {
-          if (this.imgList[colIndex]) {
-            this.imgList[colIndex].push({
-              url: url
-            })
-          } else {
-            this.$set(this.imgList, colIndex, [
-              {
-                url: url
-              }
-            ])
-          }
+          this.render({
+            index: i,
+            url: url,
+            ratio: image.width / image.height
+          })
         }
       }
+    },
+    render(imgInfo) {
+      let colIndex = imgInfo.index % this.colNumbers
+      imgInfo.left = colIndex * this.colWidth
+      //首行 top为 0，记录每列的高度
+      if (imgInfo.index < this.colNumbers) {
+        imgInfo.top = 0
+        this.colHeight[colIndex] = this.colWidth / imgInfo.ratio
+      } else {
+        //获取高度的最小值
+        let minHeight = Math.min.apply(null, this.colHeight)
+        let minIndex = this.colHeight.indexOf(minHeight)
+        //此图片的 top 为上面图片的高度，left 相等
+        imgInfo.top = minHeight
+        imgInfo.left = minIndex * this.colWidth
+        //把高度加上去
+        this.colHeight[minIndex] += this.colWidth / imgInfo.ratio
+      }
+      this.imgList.push(imgInfo)
     }
   },
-  mounted() {}
+  mounted() {
+    this.loadImage()
+  }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.waterfall-width-position {
+  position: relative;
+  .image-item {
+    position: absolute;
+    width: 200px;
+  }
+  .image {
+    padding: 5px;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+</style>
