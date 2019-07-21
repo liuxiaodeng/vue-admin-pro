@@ -17,10 +17,11 @@ export default {
     loadImage() {
       for (let i = 0; i < 17; i++) {
         let image = new Image()
-        image.src = require(`@/assets/images/${i}.jpg`)
+        let url = require(`@/assets/images/${i}.jpg`)
+        image.src = url
         image.onload = () => {
           this.imgList.push({
-            url: require(`@/assets/images/${i}.jpg`),
+            url: url,
             width: image.width,
             height: image.height
           })
@@ -34,21 +35,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-// .waterfall-height-css {
-//   margin-left: 40px;
-// }
-// .image-box {
-//   margin: 5px 10px;
-//   float: left;
-//   width: 200px;
-//   height: 200px;
-//   border: 1px solid red;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: contain;
-//   }
-// }
 .waterfall-height-css {
   display: flex;
   flex-wrap: wrap;

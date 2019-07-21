@@ -19,8 +19,8 @@ export default {
     //读取图片
     loadImage() {
       for (let i = 0; i < 17; i++) {
+        let colIndex = i % 4 //假设排4列，也可动态计算
         let url = require(`@/assets/images/${i}.jpg`)
-        let colIndex = i % 4
         if (this.imgList[colIndex]) {
           this.imgList[colIndex].push(url)
         } else {
@@ -37,12 +37,14 @@ export default {
 <style lang="scss" scoped>
 .waterfall-width-flex {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-}
-.image-col {
-  width: 200px;
-}
-img {
-  width: 100%;
+  .image-col {
+    width: 20%;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
 }
 </style>
