@@ -12,7 +12,7 @@ export const defaultRouters = [
     redirect: '/dashboard/analysis',
     meta: {
       title: '仪表盘',
-      icon: 'home'
+      icon: 'el-icon-s-home'
     },
     children: [
       {
@@ -44,18 +44,50 @@ export const defaultRouters = [
   {
     path: '/waterfall',
     component: Layout,
-    redirect: '/waterfall/height',
+    redirect: '/waterfall/height-js',
     meta: {
       title: '瀑布流布局',
-      icon: 'management'
+      icon: 'el-icon-picture'
     },
     children: [
       {
-        path: '/waterfall/height',
-        name: 'height',
-        component: () => import('../views/waterfall/EqualHeight.vue'),
+        path: '/waterfall/width-js',
+        name: 'width-js',
+        component: () => import('../views/waterfall/WidthJs.vue'),
         meta: {
-          title: '等高型'
+          title: '等宽形JS'
+        }
+      },
+      {
+        path: '/waterfall/width-position',
+        name: 'width-position',
+        component: () => import('../views/waterfall/WidthPosition.vue'),
+        meta: {
+          title: '等宽形定位'
+        }
+      },
+      {
+        path: '/waterfall/height-js',
+        name: 'height-js',
+        component: () => import('../views/waterfall/HeightJs.vue'),
+        meta: {
+          title: '等高型JS'
+        }
+      },
+      {
+        path: '/waterfall/height-css',
+        name: 'height-css',
+        component: () => import('../views/waterfall/HeightCss.vue'),
+        meta: {
+          title: '等高型CSS'
+        }
+      },
+      {
+        path: '/waterfall/image-layout',
+        name: 'image-layout',
+        component: () => import('../views/waterfall/ImageLayout.vue'),
+        meta: {
+          title: '布局'
         }
       }
     ]
@@ -64,7 +96,7 @@ export const defaultRouters = [
     path: '/shortcut',
     name: 'shortcut',
     component: () => import('../views/shortcut/Shortcut.vue'),
-    meta: { title: '快捷菜单', icon: 'promotion' }
+    meta: { title: '快捷菜单', icon: 'el-icon-s-promotion' }
   }
 ]
 

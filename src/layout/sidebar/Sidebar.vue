@@ -44,3 +44,31 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.admin-pro-sidebar {
+  .sidebar-menu {
+    width: 256px;
+    min-height: 100%;
+  }
+  .siderbar-logo {
+    background-color: $siderLogoBg;
+    a {
+      color: $color-white;
+      text-decoration: none;
+    }
+    .text {
+      margin: 0;
+    }
+  }
+}
+.siderbar-collapsed {
+  .sidebar-menu {
+    width: 64px;
+  }
+  .siderbar-logo {
+    .text {
+      display: none;
+    }
+  }
+}
+</style>

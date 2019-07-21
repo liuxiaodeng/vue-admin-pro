@@ -1,19 +1,19 @@
 <template>
-  <div ref="waterfall" class="waterfall-height">
-    <div class="img-container">
-      <div class="row" v-for="(list, index) in imgList" :key="index">
-        <div class="image-box" v-for="img in imgList[index]" :key="img.url">
-          <img :src="img.url" :height="img.height" />
-        </div>
+  <div ref="waterfall" class="waterfall-height-js">
+    <div class="row" v-for="(list, index) in imgList" :key="index">
+      <div class="image-box" v-for="img in list" :key="img.url">
+        <img :src="img.url" :height="img.height" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import { throttle } from '@/utils/utils'
 export default {
   name: 'EqualHeight',
   data() {
     return {
+      resizeRender: null,
       baseHeight: 200, //图片的基础计算高度
       imgList: [[]], //用二维数据保存每一行数据
       rowWidth: 0, //每行的图片宽度
@@ -42,7 +42,7 @@ export default {
       this.rowWidth += image.width
       //如果宽度大于容器宽度，去掉多余的宽度，整体进行缩放适应容器让右边对齐
       if (this.rowWidth > clientWidth) {
-        //减去每个padding边距
+        //减去每个css padding边距
         clientWidth = clientWidth - this.imgList[this.rowCount].length * 10
         this.rowWidth = this.rowWidth - image.width
         //把高度调整为放大后的
@@ -57,21 +57,30 @@ export default {
       } else {
         this.imgList[this.rowCount].push(image)
       }
+    },
+    resize() {
+      //将已存在的图片数据展开，重新计算
+      let newList = this.imgList.reduce((list, item) => list.concat(item), [])
+      //清空数据
+      this.imgList = [[]]
+      this.rowWidth = 0
+      this.rowCount = 0
+      newList.forEach(image => this.compare(image))
     }
   },
   created() {
     this.loadImage()
+  },
+  mounted() {
+    this.resizeRender = throttle(this.resize, 200)
+    window.addEventListener('resize', this.resizeRender)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeRender)
   }
 }
 </script>
 <style lang="scss" scoped>
-.img-container {
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-}
 .image-box {
   float: left;
   padding: 5px;

@@ -31,7 +31,7 @@ export default {
             },
             [
               createElement('i', {
-                class: item.meta.icon ? 'el-icon-s-' + item.meta.icon : ''
+                class: item.meta.icon ? item.meta.icon : ''
               }),
               createElement('span', item.meta.title)
             ]
@@ -56,7 +56,7 @@ export default {
         },
         [
           createElement('i', {
-            class: item.meta.icon ? 'el-icon-s-' + item.meta.icon : ''
+            class: item.meta.icon ? item.meta.icon : ''
           }),
           createElement(
             'span',

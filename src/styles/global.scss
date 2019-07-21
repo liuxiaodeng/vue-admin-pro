@@ -1,36 +1,9 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 .admin-pro-layout {
   display: flex;
-  flex: 1;
-  height: 100vh;
+  min-height: 100vh;
 }
 .admin-pro-content {
-  flex: 1;
-}
-.admin-pro-sidebar {
-  flex: 0 0 256px;
-  .siderbar-logo {
-    padding: 1.2em 0;
-    background-color: $siderLogoBg;
-    text-align: center;
-    a {
-      color: $color-white;
-      text-decoration: none;
-    }
-    .text {
-      margin: 0;
-    }
-  }
-  .sidebar-menu {
-    height: 100vh;
-  }
-}
-.siderbar-collapsed {
-  flex: 0 0 64px;
-  .siderbar-logo {
-    .text {
-      display: none;
-    }
-  }
+  flex-grow: 1;
 }

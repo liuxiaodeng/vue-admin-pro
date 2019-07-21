@@ -7,7 +7,15 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@': resolve('src')
+        '@': resolve('src'),
+        styles: resolve('src/styles')
+      }
+    }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "~styles/variables.scss";`
       }
     }
   }
