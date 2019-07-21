@@ -14,7 +14,7 @@ vue-admin-pro 利用最新板 Vue + elementUI 开发的一个项目，里面集�
 
 ```
 # clone the project
-git clone https://github.com/PanJiaChen/vue-element-admin.git
+git clone https://github.com/liuxiaodeng/vue-admin-pro.git
 
 # enter the project directory
 cd vue-admin-pro
